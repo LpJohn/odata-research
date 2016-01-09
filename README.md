@@ -19,3 +19,7 @@ For other OData URLs, see here:
 
 	http://www.asp.net/web-api/overview/odata-support-in-aspnet-web-api/supporting-odata-query-options
 
+NOTE: this POC is based on the example found here:
+
+http://www.asp.net/web-api/overview/odata-support-in-aspnet-web-api/odata-v4/create-an-odata-v4-endpoint
+
