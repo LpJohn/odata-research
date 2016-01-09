@@ -25,7 +25,7 @@ import org.apache.olingo.commons.api.edm.EdmSchema;
 import org.apache.olingo.commons.api.edm.FullQualifiedName;
 
 /**
- * Hello world!
+ * Based on code from https://templth.wordpress.com/2014/12/03/accessing-odata-v4-service-with-olingo/
  *
  */
 public class App 
@@ -84,23 +84,48 @@ public class App
     
     private static void showData() {
         ODataClient client = ODataClientFactory.getV4();
-        URI productsUri = client.newURIBuilder(_serviceRoot).appendEntitySetSegment("Products").build();   	
         
+        URI productsUri = client.newURIBuilder(_serviceRoot).appendEntitySetSegment("Products").build();   	
+        showData(client, productsUri);
+        
+        productsUri = client.newURIBuilder(_serviceRoot).appendEntitySetSegment("Products").select("Name,Price").build();       
+        showData(client, productsUri);
+        
+        productsUri = client.newURIBuilder(_serviceRoot).appendEntitySetSegment("Products").filter("Category eq 'Lighting' and Price ge 100").build();
+        showData(client, productsUri);
+    }
+    
+    private static void showData(ODataClient client, URI productsUri ) {
+
+    	System.out.println(productsUri);
+    	
         ODataRetrieveResponse<ODataEntitySetIterator<ODataEntitySet, ODataEntity>> response = 
         		client.getRetrieveRequestFactory().getEntitySetIteratorRequest(productsUri).execute();
 
         ODataEntitySetIterator<ODataEntitySet, ODataEntity> iterator = response.getBody();
-
+        
+        boolean first = true;
+        StringBuilder title = new StringBuilder();
+        StringBuilder data = new StringBuilder();
         while (iterator.hasNext()) {
-            ODataEntity customer = iterator.next();
-            List<ODataProperty> properties = customer.getProperties();
+            ODataEntity product = iterator.next();
+            List<ODataProperty> properties = product.getProperties();
             for (ODataProperty property : properties) {
                 String name = property.getName();
                 ODataValue value = property.getValue();
                 String valueType = value.getTypeName();
-                System.out.println("Name: "+name+"\tValue: "+value + "+\tType:" + valueType);
+                if (first)
+                        title.append(name + " (" + valueType + ")\t");
+                data.append(value + "\t");
             }
+            if (first) {
+            	title.append("\r\n");
+            	first = false;
+            }
+            data.append("\r\n");
         }
+        
+        System.out.println(title + "\r\n" + data);
     }
     
 }
