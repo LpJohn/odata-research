@@ -17,7 +17,7 @@ http://localhost:62390/odata/Products?$filter=Price%20ge%2050
 
 For other OData URLs, see here:
 
-	http://www.asp.net/web-api/overview/odata-support-in-aspnet-web-api/supporting-odata-query-options
+http://www.asp.net/web-api/overview/odata-support-in-aspnet-web-api/supporting-odata-query-options
 
 NOTE: this POC is based on the example found here:
 
