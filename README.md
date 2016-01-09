@@ -1,7 +1,7 @@
-## odata-research
+# odata-research
 Goal: to make a POC of a .NET server and Java client
 
-#To use OData server:
+##To use .NET OData server:
 
 1. open ProductService solution in VS2013 or later and hit ctrl + F5
 
@@ -23,7 +23,7 @@ NOTE: this POC is based on the example found here:
 
 http://www.asp.net/web-api/overview/odata-support-in-aspnet-web-api/odata-v4/create-an-odata-v4-endpoint
 
-#To use Java client:
+##To use Java client:
 
 1. Open Eclipse (create a new workspace if necessary)
 
