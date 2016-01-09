@@ -18,7 +18,7 @@ http://localhost:62390/odata/Products(1)
 
 - select name and price fields from top 2 records sorted descending by Name
 
-http://localhost:62390/odata/Products?$select=Name,Price&$top=2&$orderby=Name%20desc
+http://localhost:62390/odata/Products?$select=Name,Price&$top=2&$orderby=Name desc
 
 - select name and price of the record where the ID == 1
 
@@ -26,7 +26,7 @@ http://localhost:62390/odata/Products(1)?$select=Name,Price
 
 - filter for price >= 50
 
-http://localhost:62390/odata/Products?$filter=Price%20ge%2050 
+http://localhost:62390/odata/Products?$filter=Price ge 50 
 
 For other OData URLs, see here:
 
