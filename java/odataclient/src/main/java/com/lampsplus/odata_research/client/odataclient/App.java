@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.olingo.client.api.communication.request.retrieve.EdmMetadataRequest;
+import org.apache.olingo.client.api.communication.request.retrieve.ODataRetrieveRequest;
 import org.apache.olingo.client.api.communication.request.retrieve.ODataServiceDocumentRequest;
 import org.apache.olingo.client.api.communication.response.ODataRetrieveResponse;
 import org.apache.olingo.client.api.domain.ODataEntitySetIterator;
@@ -99,8 +100,12 @@ public class App
 
     	System.out.println(productsUri);
     	
-        ODataRetrieveResponse<ODataEntitySetIterator<ODataEntitySet, ODataEntity>> response = 
-        		client.getRetrieveRequestFactory().getEntitySetIteratorRequest(productsUri).execute();
+        ODataRetrieveRequest<ODataEntitySetIterator<ODataEntitySet, ODataEntity>> request = 
+        		client.getRetrieveRequestFactory().getEntitySetIteratorRequest(productsUri);
+    	
+        request.addCustomHeader("env", "test"); // set custom header so server knows which database to use
+
+        ODataRetrieveResponse<ODataEntitySetIterator<ODataEntitySet, ODataEntity>> response = request.execute();
 
         ODataEntitySetIterator<ODataEntitySet, ODataEntity> iterator = response.getBody();
         
