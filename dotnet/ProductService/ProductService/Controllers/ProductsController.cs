@@ -29,7 +29,24 @@ namespace ProductService.Controllers
         [EnableQuery]
         public IQueryable<Product> Get()
         {
-            return Products;
+            var env = GetEnvironment() ?? "no env";
+
+            var products = Products;
+
+            // echo back the env value in the product name
+            products.ToList().ForEach(p => p.Name = env + " " + p.Name);
+
+            return products;
+        }
+
+        private string GetEnvironment()
+        {
+            IEnumerable<string> env;
+            Request.Headers.TryGetValues("env", out env);
+
+            if (env == null) return null;
+
+            return env.FirstOrDefault();
         }
 
         [EnableQuery]
